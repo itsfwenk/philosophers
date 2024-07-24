@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/07/23 15:57:36 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/24 16:30:15 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,27 @@ int	ft_atoi(char *s)
 		i++;
 	}
 	return (res);
+}
+
+void	get_args(char **av, t_arg *args)
+{
+	struct timeval	tp;
+
+	args->n_philo = ft_atoi(av[1]);
+	args->die_t = ft_atoi(av[2]);
+	args->eat_t = ft_atoi(av[3]);
+	args->sleep_t = ft_atoi(av[4]);
+	gettimeofday(&tp, NULL);
+	args->start_time = tp.tv_sec / 1000;
+	args->forks = NULL;
+}
+
+time_t	time_from_start(t_arg *args)
+{
+	struct timeval	tp;
+	time_t			current_time;
+
+	gettimeofday(&tp, NULL);
+	current_time = tp.tv_sec / 1000;
+	return (current_time - args->start_time);
 }
