@@ -6,13 +6,13 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/24 14:45:35 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/24 17:19:04 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	create_philo(t_arg args, t_philo **philos)
+void	create_philo(t_arg args, t_philo **philos)
 {
 	int	i;
 
@@ -25,6 +25,8 @@ int	create_philo(t_arg args, t_philo **philos)
 			philos[i]->left_fork = args.n_philo - 1;
 		else
 			philos[i]->left_fork = i - 1;
+		philos[i]->last_meal = 0;
+		philos[i]->alive = TRUE;
 		i++;
 	}
 	philos[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/24 16:31:03 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/24 17:28:45 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ typedef struct s_fork
 
 typedef struct s_arg
 {
-	int			n_philo;
-	int			die_t;
-	int			eat_t;
-	int			sleep_t;
+	int		n_philo;
+	int		die_t;
+	int		eat_t;
+	int		sleep_t;
 	time_t	start_time;
-	t_fork		**forks;
+	t_fork	**forks;
 } t_arg;
 
 typedef struct s_philo
@@ -46,6 +46,8 @@ typedef struct s_philo
 	int			name;
 	int			left_fork;
 	int			right_fork;
+	int			alive;
+	time_t		last_meal;
 	pthread_t	tid;
 }	t_philo;
 
@@ -60,5 +62,7 @@ int		ft_atoi(char *s);
 void	get_args(char **av, t_arg *args);
 
 time_t	time_from_start(t_arg *args);
+
+int		check_alive(t_arg *args, t_philo **philos, int name);
 
 #endif
