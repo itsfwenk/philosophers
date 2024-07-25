@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/25 16:23:17 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/25 16:44:45 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	check_alive(t_arg *args, t_philo **philos, int name)
 	struct timeval	tp;
 
 	gettimeofday(&tp, NULL);
-	if (tp.tv_sec - philos[name]->last_meal > (args->die_t) / 1000)
+	if (tp.tv_sec - (*philos)[name]->last_meal > (args->die_t) / 1000)
 	{
 		free(args->forks);
-		free(philos);
+		free((*philos));
 		printf("%ld %d died\n", time_from_start(args), name);
 		exit(0);
 	}

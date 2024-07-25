@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/25 16:28:20 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/25 16:40:22 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static void	create_philo(t_arg *args, t_philo **philos)
 	args->philos = philos;
 	while (i < args->n_philo)
 	{
-		philos[i]->exist = TRUE;
-		philos[i]->name = i + 1;
-		philos[i]->right_fork = i;
+		(*philos)[i].exist = TRUE;
+		(*philos)[i].name = i + 1;
+		(*philos)[i].right_fork = i;
 		if (i == 0)
-			philos[i]->left_fork = args->n_philo - 1;
+			(*philos)[i].left_fork = args->n_philo - 1;
 		else
-			philos[i]->left_fork = i - 1;
-		philos[i]->last_meal = 0;
-		philos[i]->n_meal = 0;
-		args->current = philos[i]->name;
+			(*philos)[i].left_fork = i - 1;
+		(*philos)[i].last_meal = 0;
+		(*philos)[i].n_meal = 0;
+		args->current = (*philos)[i].name;
 		start_philo(args);
 		i++;
 	}
@@ -43,8 +43,14 @@ static void	init_forks(t_arg *args, t_fork	**forks)
 	i = 0;
 	while (i < args->n_philo)
 	{
-		forks[i]->belong_to = i + 1;
-		pthread_mutex_init(&forks[i]->fork_mutex, NULL);
+		(*forks)[i].belong_to = i + 1;
+		pthread_mutex_init(&(*forks)[i].fork_mutex, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < args->n_philo)
+	{
+		dprintf(2, "belong to %d\n", (*forks)[i].belong_to);
 		i++;
 	}
 }
