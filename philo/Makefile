@@ -6,7 +6,7 @@
 #    By: fli <fli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 17:19:02 by fli               #+#    #+#              #
-#    Updated: 2024/07/25 16:01:21 by fli              ###   ########.fr        #
+#    Updated: 2024/07/26 14:53:41 by fli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,4 +41,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: $(NAME) all clean fclean re
+.PHONY: all clean fclean re

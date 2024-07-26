@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/25 16:21:31 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 14:23:07 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,34 +49,41 @@ typedef struct s_arg
 	int		min_meals;
 	int		current;
 	time_t	start_time;
-	t_fork	**forks;
-	t_philo	**philos;
+	t_fork	*forks;
+	t_philo	*philos;
 } t_arg;
-
 
 /////////////////////// PHILO ///////////////////////
 
 
 /////////////////////// PHILO_UTILS ///////////////////////
 
-int		ft_atoi(char *s);
+int			ft_atoi(char *s);
 
-void	get_args(char **av, t_arg *args);
+void		get_args(char **av, t_arg *args);
 
-time_t	time_from_start(t_arg *args);
+suseconds_t	get_time_ms(void);
+
+time_t		time_from_start(t_arg *args);
 
 /////////////////////// PHILO_UTILS2 ///////////////////////
 
-int		check_alive(t_arg *args, t_philo **philos, int name);
+int			check_alive(t_arg *args, t_philo *philos, int name);
 
-int		count_philo(t_arg *args);
+int			count_philo(t_arg *args);
 
-int		check_meals(t_arg *args, t_philo **philos);
+int			check_meals(t_arg *args, t_philo *philos);
+
+void		join_philo(t_philo * philos);
+
+void	philo_id(t_arg *args); ////
+
+void	print_args(t_arg *args);/////
 
 /////////////////////// ROUTINE ///////////////////////
 
-void	*philo_routine(void *args);
+void		*philo_routine(void *args);
 
-void	start_philo(t_arg *args);
+void		start_philo(t_arg *args);
 
 #endif
