@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 14:08:15 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 16:27:12 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ int	ft_atoi(char *s)
 	return (res);
 }
 
-void	get_args(char **av, t_arg *args)
+void	get_args(int ac, char **av, t_arg *args)
 {
 	args->n_philo = ft_atoi(av[1]);
 	args->die_t = ft_atoi(av[2]);
 	args->eat_t = ft_atoi(av[3]);
 	args->sleep_t = ft_atoi(av[4]);
-	args->min_meals = ft_atoi(av[5]);
+	if (ac == 6)
+		args->min_meals = ft_atoi(av[5]);
+	else
+		args->min_meals = -1;
 	args->start_time = get_time_ms();
 	args->forks = NULL;
 }

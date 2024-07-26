@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 14:46:24 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 16:26:20 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ int	main(int ac, char **av)
 	t_philo	*philos;
 	t_fork	*forks;
 
-	(void)ac;
-	get_args(av, &args);
+	get_args(ac, av, &args);
 	philos = malloc((1 + args.n_philo) * sizeof(t_philo));
 	if (philos == NULL)
 		exit(EXIT_FAILURE);

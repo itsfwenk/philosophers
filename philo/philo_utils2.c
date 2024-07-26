@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 14:52:19 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 16:28:40 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	check_meals(t_arg *args, t_philo *philos)
 	int	i;
 
 	if (count_philo(args) != args->n_philo)
+		return (FALSE);
+	if (args->min_meals == -1)
 		return (FALSE);
 	i = 0;
 	while (philos[i].exist == TRUE)

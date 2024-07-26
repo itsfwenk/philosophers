@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:48:47 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 15:31:04 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 16:47:54 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void	start_philo(t_arg *args)
 
 	current_tid = args->philos[args->current].tid;
 	pthread_create(&current_tid, NULL, philo_routine, args);
+	printf("tid = %ld\n", current_tid);
 }

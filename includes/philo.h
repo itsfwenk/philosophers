@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 15:28:41 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 16:26:31 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_arg
 
 int			ft_atoi(char *s);
 
-void		get_args(char **av, t_arg *args);
+void		get_args(int ac, char **av, t_arg *args);
 
 suseconds_t	get_time_ms(void);
 
