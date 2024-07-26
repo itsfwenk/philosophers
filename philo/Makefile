@@ -6,7 +6,7 @@
 #    By: fli <fli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 17:19:02 by fli               #+#    #+#              #
-#    Updated: 2024/07/26 14:53:41 by fli              ###   ########.fr        #
+#    Updated: 2024/07/26 15:31:21 by fli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS	= -Werror -Wextra -Wall
 
 INCLUDE	=	-I ../includes/
 
-SRC			=	philo_utils.c \
+SRC			=	clean.c \
+				philo_utils.c \
 				philo_utils2.c \
 				philo.c \
 				routine.c \

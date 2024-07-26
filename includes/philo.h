@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 14:23:07 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/26 15:28:41 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,11 @@ void	print_args(t_arg *args);/////
 void		*philo_routine(void *args);
 
 void		start_philo(t_arg *args);
+
+/////////////////////// CLEAN ///////////////////////
+
+void		dish_washer(t_arg *args);
+
+void		detach_philo(t_arg *args);
 
 #endif
