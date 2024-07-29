@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 18:58:48 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 21:16:35 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ int	check_alive(t_arg *args, t_philo *philos, int index)
 	pthread_mutex_lock(&philos[index].last_meal_mutex);
 	if ((get_time_ms() - philos[index].last_meal) > args->die_t)
 	{
-		philos[index].exist = FALSE;
+		pthread_mutex_lock(&philos[index].alive_mutex);
+		philos[index].alive = FALSE;
+		pthread_mutex_unlock(&philos[index].alive_mutex);
 		printf("%ld %d died\n", time_from_start(args), philos[index].name);
+		pthread_mutex_unlock(&philos[index].last_meal_mutex);
+		return (FALSE);
 	}
 	pthread_mutex_unlock(&philos[index].last_meal_mutex);
 	return (TRUE);

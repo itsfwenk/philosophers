@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 20:19:04 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 22:51:55 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-#  define TRUE 1
-#  define FALSE 0
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_fork
 {
@@ -53,10 +53,11 @@ typedef struct s_arg
 	int				min_meals;
 	pthread_mutex_t	current_mutex;
 	int				current;
+	pthread_mutex_t	talking_stick;
 	time_t			start_time;
 	t_fork			*forks;
 	t_philo			*philos;
-} t_arg;
+}	t_arg;
 
 /////////////////////// CLEAN ///////////////////////
 
@@ -66,7 +67,7 @@ void		detach_philo(t_arg *args);
 
 /////////////////////// MOTHER ///////////////////////
 
-void	create_philo(t_arg *args, t_philo *philos);
+void		create_philo(t_arg *args, t_philo *philos);
 
 /////////////////////// PHILO ///////////////////////
 
@@ -89,13 +90,21 @@ int			count_philo(t_arg *args);
 
 int			check_meals(t_arg *args, t_philo *philos);
 
-void		join_philo(t_philo * philos);
+void		join_philo(t_philo *philos);
 
 void	philo_id(t_arg *args); ////
 
 void	print_args(t_arg *args);/////
 
 void	show_all_philo(t_arg *args);///
+
+/////////////////////// ROUTINE_UTILS ///////////////////////
+
+void		use_brain(t_arg *args, t_philo *philos, int index);
+
+void		eat_spaghet(t_arg *args, t_philo *philos, int index);
+
+void		take_nap(t_arg *args, t_philo *philos, int index);
 
 /////////////////////// ROUTINE ///////////////////////
 
