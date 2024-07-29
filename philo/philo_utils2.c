@@ -6,27 +6,24 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 14:36:01 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 18:58:48 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_alive(t_arg *args, t_philo *philos, int name)
+int	check_alive(t_arg *args, t_philo *philos, int index)
 {
-	// printf("current time %ld\nlast meal %ld\n", get_time_ms(), philos[name].last_meal);
-	// printf("since last meal %ld\n", get_time_ms() - philos[name].last_meal);
+	// printf("current time %ld\nlast meal %ld\n", get_time_ms(), philos[index].last_meal);
+	// printf("since last meal %ld\n", get_time_ms() - philos[index].last_meal);
 	// printf("time to die %d\n", args->die_t);
-	pthread_mutex_lock(&philos[name].last_meal_mutex);
-	if ((get_time_ms() - philos[name].last_meal) > args->die_t)
+	pthread_mutex_lock(&philos[index].last_meal_mutex);
+	if ((get_time_ms() - philos[index].last_meal) > args->die_t)
 	{
-		free(args->forks);
-		free(philos);
-		printf("%ld %d died\n", time_from_start(args), name);
-		pthread_mutex_unlock(&philos[name].last_meal_mutex);
-		exit(EXIT_SUCCESS);
+		philos[index].exist = FALSE;
+		printf("%ld %d died\n", time_from_start(args), philos[index].name);
 	}
-	pthread_mutex_unlock(&philos[name].last_meal_mutex);
+	pthread_mutex_unlock(&philos[index].last_meal_mutex);
 	return (TRUE);
 }
 

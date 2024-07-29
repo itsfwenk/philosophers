@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 14:16:11 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 20:19:04 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_philo
 	pthread_mutex_t	n_meal_mutex;
 	int				n_meal;
 	int				exist;
+	pthread_mutex_t	alive_mutex;
+	int				alive;
 	pthread_mutex_t	last_meal_mutex;
 	time_t			last_meal;
 	pthread_t		tid;
@@ -44,16 +46,27 @@ typedef struct s_philo
 
 typedef struct s_arg
 {
-	int		n_philo;
-	int		die_t;
-	int		eat_t;
-	int		sleep_t;
-	int		min_meals;
-	int		current;
-	time_t	start_time;
-	t_fork	*forks;
-	t_philo	*philos;
+	int				n_philo;
+	int				die_t;
+	int				eat_t;
+	int				sleep_t;
+	int				min_meals;
+	pthread_mutex_t	current_mutex;
+	int				current;
+	time_t			start_time;
+	t_fork			*forks;
+	t_philo			*philos;
 } t_arg;
+
+/////////////////////// CLEAN ///////////////////////
+
+void		dish_washer(t_arg *args);
+
+void		detach_philo(t_arg *args);
+
+/////////////////////// MOTHER ///////////////////////
+
+void	create_philo(t_arg *args, t_philo *philos);
 
 /////////////////////// PHILO ///////////////////////
 
@@ -89,11 +102,5 @@ void	show_all_philo(t_arg *args);///
 void		*philo_routine(void *args);
 
 void		start_philo(t_arg *args);
-
-/////////////////////// CLEAN ///////////////////////
-
-void		dish_washer(t_arg *args);
-
-void		detach_philo(t_arg *args);
 
 #endif
