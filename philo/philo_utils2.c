@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 16:28:40 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 14:36:01 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ int	check_alive(t_arg *args, t_philo *philos, int name)
 	// printf("current time %ld\nlast meal %ld\n", get_time_ms(), philos[name].last_meal);
 	// printf("since last meal %ld\n", get_time_ms() - philos[name].last_meal);
 	// printf("time to die %d\n", args->die_t);
+	pthread_mutex_lock(&philos[name].last_meal_mutex);
 	if ((get_time_ms() - philos[name].last_meal) > args->die_t)
 	{
 		free(args->forks);
 		free(philos);
 		printf("%ld %d died\n", time_from_start(args), name);
+		pthread_mutex_unlock(&philos[name].last_meal_mutex);
 		exit(EXIT_SUCCESS);
 	}
-	else
-		return (TRUE);
+	pthread_mutex_unlock(&philos[name].last_meal_mutex);
+	return (TRUE);
 }
 
 int	count_philo(t_arg *args)
@@ -43,7 +45,6 @@ int	count_philo(t_arg *args)
 int	check_meals(t_arg *args, t_philo *philos)
 {
 	int	i;
-
 	if (count_philo(args) != args->n_philo)
 		return (FALSE);
 	if (args->min_meals == -1)
@@ -51,8 +52,13 @@ int	check_meals(t_arg *args, t_philo *philos)
 	i = 0;
 	while (philos[i].exist == TRUE)
 	{
+		pthread_mutex_lock(&philos[i].n_meal_mutex);
 		if (philos[i].n_meal < args->min_meals)
+		{
+			pthread_mutex_unlock(&philos[i].n_meal_mutex);
 			return (FALSE);
+		}
+		pthread_mutex_unlock(&philos[i].n_meal_mutex);
 		i++;
 	}
 	return (TRUE);
@@ -97,4 +103,24 @@ void	print_args(t_arg *args)
 	printf("current %d\n", args->current);
 	printf("start time %ld\n", args->start_time);
 	printf("##############################################\n");
+}
+
+void	show_all_philo(t_arg *args)
+{
+	int	i = 0;
+	t_philo	current_philo;
+	dprintf(2, "ALL PHILO");
+	while (((t_arg *)args)->n_philo)
+	{
+	current_philo = args->philos[i];
+	printf("////////////////////////////////////\n");
+	printf("name %d\n", current_philo.name);
+	printf("left fork %d\n", current_philo.left_fork);
+	printf("right fork %d\n", current_philo.right_fork);
+	printf("eaten meals %d\n", current_philo.n_meal);
+	printf("exist %d\n", current_philo.exist);
+	printf("last meal %ld\n", current_philo.last_meal);
+	printf("tid %ld\n", current_philo.tid);
+	printf("////////////////////////////////////\n");
+	}
 }

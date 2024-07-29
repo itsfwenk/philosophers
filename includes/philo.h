@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 16:26:31 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 14:16:11 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int			name;
-	int			left_fork;
-	int			right_fork;
-	int			n_meal;
-	int			exist;
-	time_t		last_meal;
-	pthread_t	tid;
+	int				name;
+	int				left_fork;
+	int				right_fork;
+	pthread_mutex_t	n_meal_mutex;
+	int				n_meal;
+	int				exist;
+	pthread_mutex_t	last_meal_mutex;
+	time_t			last_meal;
+	pthread_t		tid;
 }	t_philo;
 
 typedef struct s_arg
@@ -79,6 +81,8 @@ void		join_philo(t_philo * philos);
 void	philo_id(t_arg *args); ////
 
 void	print_args(t_arg *args);/////
+
+void	show_all_philo(t_arg *args);///
 
 /////////////////////// ROUTINE ///////////////////////
 

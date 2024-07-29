@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/26 16:26:20 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/29 14:28:57 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ static void	create_philo(t_arg *args, t_philo *philos)
 			philos[i].left_fork = args->n_philo - 1;
 		else
 			philos[i].left_fork = i - 1;
+		pthread_mutex_init(&philos[i].n_meal_mutex, NULL);
+		pthread_mutex_lock(&philos[i].n_meal_mutex);
 		philos[i].n_meal = 0;
+		pthread_mutex_unlock(&philos[i].n_meal_mutex);
 		args->current = i;
+		pthread_mutex_init(&philos[i].last_meal_mutex, NULL);
+		pthread_mutex_lock(&philos[i].last_meal_mutex);
 		philos[i].last_meal = get_time_ms();
+		pthread_mutex_unlock(&philos[i].last_meal_mutex);
 		start_philo(args);
 		i++;
 	}
@@ -73,6 +79,7 @@ int	main(int ac, char **av)
 	t_fork	*forks;
 
 	get_args(ac, av, &args);
+	// print_args(&args);
 	philos = malloc((1 + args.n_philo) * sizeof(t_philo));
 	if (philos == NULL)
 		exit(EXIT_FAILURE);
