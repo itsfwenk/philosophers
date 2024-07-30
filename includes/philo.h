@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 22:51:55 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 12:20:30 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ typedef struct s_arg
 
 /////////////////////// CLEAN ///////////////////////
 
-void		dish_washer(t_arg *args);
+void		destroy_detach(t_arg *args);
 
-void		detach_philo(t_arg *args);
+void		until_end(t_arg *args, t_philo *philos);
 
 /////////////////////// MOTHER ///////////////////////
 

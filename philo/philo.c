@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 22:55:20 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 12:20:57 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ static void	init_philo(t_arg *args, t_philo *philos)
 
 void	kill_philos(t_arg *args, t_philo *philos)
 {
-
+	destroy_detach(args);
+	free(philos);
+	free(args->forks);
 }
 
 int	main(int ac, char **av)
@@ -62,5 +64,6 @@ int	main(int ac, char **av)
 	init_forks(&args, forks);
 	create_philo(&args, philos);
 	join_philo(philos);
+	until_end(&args, philos);
 }
 

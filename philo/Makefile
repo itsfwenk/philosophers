@@ -6,7 +6,7 @@
 #    By: fli <fli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 17:19:02 by fli               #+#    #+#              #
-#    Updated: 2024/07/29 17:54:46 by fli              ###   ########.fr        #
+#    Updated: 2024/07/30 12:33:25 by fli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,11 @@ CFLAGS	= -Wextra -Wall
 INCLUDE	=	-I ../includes/
 
 SRC			=	clean.c \
+				mother.c \
 				philo_utils.c \
 				philo_utils2.c \
 				philo.c \
+				routine_utils.c \
 				routine.c \
 
 OBJ			=	$(SRC:.c=.o)
