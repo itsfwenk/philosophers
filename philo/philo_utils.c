@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 12:02:56 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 19:33:54 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	get_args(int ac, char **av, t_arg *args)
 		args->min_meals = -1;
 	args->start_time = get_time_ms();
 	args->forks = NULL;
+	pthread_mutex_init(&args->current_mutex, NULL);
+	pthread_mutex_init(&args->talking_stick, NULL);
 }
 
 suseconds_t	get_time_ms(void)

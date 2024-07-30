@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:03:47 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 21:30:26 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 15:08:06 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ static void	init_philo_mutex(t_philo *philos, int index)
 	pthread_mutex_unlock(&philos[index].alive_mutex);
 }
 
-static void	init_args_mutex(t_arg *args, int index)
-{
-	pthread_mutex_init(&args->current_mutex, NULL);
-	pthread_mutex_lock(&args->current_mutex);
-	args->current = index;
-	pthread_mutex_unlock(&args->current_mutex);
-	pthread_mutex_init(&args->talking_stick, NULL);
-}
-
 void	create_philo(t_arg *args, t_philo *philos)
 {
 	int	i;
@@ -52,7 +43,8 @@ void	create_philo(t_arg *args, t_philo *philos)
 		else
 			philos[i].left_fork = i - 1;
 		init_philo_mutex(philos, i);
-		init_args_mutex(args, i);
+		pthread_mutex_lock(&args->current_mutex);
+		args->current = i;
 		start_philo(args);
 		i++;
 	}

@@ -6,7 +6,7 @@
 #    By: fli <fli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 17:19:02 by fli               #+#    #+#              #
-#    Updated: 2024/07/30 12:33:25 by fli              ###   ########.fr        #
+#    Updated: 2024/07/30 14:08:17 by fli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= philo
 
 CC		= cc -pthread -g3
 
-CFLAGS	= -Wextra -Wall
+CFLAGS	= -Werror -Wextra -Wall
 
 INCLUDE	=	-I ../includes/
 

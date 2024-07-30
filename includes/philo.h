@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 12:20:30 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 19:58:39 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,13 @@ void	show_all_philo(t_arg *args);///
 
 void		use_brain(t_arg *args, t_philo *philos, int index);
 
-void		eat_spaghet(t_arg *args, t_philo *philos, int index);
+int			eat_spaghet(t_arg *args, t_philo *philos, int index);
 
-void		take_nap(t_arg *args, t_philo *philos, int index);
+int			take_nap(t_arg *args, t_philo *philos, int index);
 
 /////////////////////// ROUTINE ///////////////////////
+
+void		do_something(int waiting_time);
 
 void		*philo_routine(void *args);
 

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/29 21:16:35 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 19:46:26 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	philo_id(t_arg *args)
 	printf("eaten meals %d\n", current_philo.n_meal);
 	printf("exist %d\n", current_philo.exist);
 	printf("last meal %ld\n", current_philo.last_meal);
-	printf("tid %ld\n", current_philo.tid);
+	printf("tid %lu\n", (unsigned long)current_philo.tid);
 	printf("////////////////////////////////////\n");
 }
 
@@ -121,7 +121,7 @@ void	show_all_philo(t_arg *args)
 	printf("eaten meals %d\n", current_philo.n_meal);
 	printf("exist %d\n", current_philo.exist);
 	printf("last meal %ld\n", current_philo.last_meal);
-	printf("tid %ld\n", current_philo.tid);
+	printf("tid %lu\n", (unsigned long)current_philo.tid);
 	printf("////////////////////////////////////\n");
 	}
 }
