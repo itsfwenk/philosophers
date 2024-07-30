@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:12:51 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 19:53:54 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 21:53:45 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	destroy_detach(t_arg *args)
 		pthread_mutex_destroy(&args->philos[i].n_meal_mutex);
 		pthread_mutex_destroy(&args->philos[i].alive_mutex);
 		pthread_mutex_destroy(&args->philos[i].last_meal_mutex);
-		dprintf(2, "tid %lu\n", (unsigned long)args->philos[i].tid);
-		pthread_detach(args->philos[i].tid);
+		// pthread_detach(args->philos[i].tid);
 		i++;
 	}
 	i = 0;
@@ -40,9 +39,11 @@ void	until_end(t_arg *args, t_philo *philos)
 {
 	int	i;
 
+	// dprintf(1, "////////////////////");
 	while (TRUE)
 	{
 		i = 0;
+		// dprintf(2, "////////////////////");
 		while (i < args->n_philo)
 		{
 			pthread_mutex_lock(&philos[i].alive_mutex);
@@ -52,6 +53,12 @@ void	until_end(t_arg *args, t_philo *philos)
 				destroy_detach(args);
 				free(philos);
 				free(args->forks);
+				int j = 0;
+				while (j < args->n_philo)
+				{
+					dprintf(2, "meals eating : %d\n", philos[j].n_meal);
+					j++;
+				}
 				exit(EXIT_SUCCESS);
 			}
 			pthread_mutex_unlock(&philos[i].alive_mutex);

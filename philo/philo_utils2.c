@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 19:46:26 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 21:21:54 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,21 @@ int	check_meals(t_arg *args, t_philo *philos)
 	return (TRUE);
 }
 
-void	join_philo(t_philo *philos)
+void	join_philo(t_arg *args, t_philo *philos)
 {
 	int	i;
-
+	dprintf(2, "JOINING PHILO\n");
 	i = 0;
-	while (philos[i].exist == TRUE)
+	while (i < args->n_philo)
 	{
+		// pthread_mutex_lock(&philos[i].tid_mutex);
+		dprintf(2, "tid %ld\n", (long)philos[i].tid);
 		pthread_join(philos[i].tid, NULL);
+		dprintf(2, "gergregergergergergergergerggergegeg");
+		// pthread_mutex_unlock(&philos[i].tid_mutex);
 		i++;
 	}
+	dprintf(2, "ALL PHILO JOINED\n");
 }
 
 void	philo_id(t_arg *args)

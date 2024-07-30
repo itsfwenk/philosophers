@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 15:04:57 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 21:51:34 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av)
 	args.forks = forks;
 	init_forks(&args, forks);
 	create_philo(&args, philos);
-	join_philo(philos);
+	// join_philo(&args, philos);
 	until_end(&args, philos);
 }
 

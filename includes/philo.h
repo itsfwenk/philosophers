@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 19:58:39 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 20:53:56 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philo
 	int				alive;
 	pthread_mutex_t	last_meal_mutex;
 	time_t			last_meal;
+	pthread_mutex_t	tid_mutex;
 	pthread_t		tid;
 }	t_philo;
 
@@ -90,7 +91,7 @@ int			count_philo(t_arg *args);
 
 int			check_meals(t_arg *args, t_philo *philos);
 
-void		join_philo(t_philo *philos);
+void		join_philo(t_arg *args, t_philo *philos);
 
 void	philo_id(t_arg *args); ////
 

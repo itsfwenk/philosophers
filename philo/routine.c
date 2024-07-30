@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 19:56:37 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 20:46:55 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*philo_routine(void *args)
 	philos = ((t_arg *)args)->philos;
 	index = ((t_arg *)args)->current;
 	// pthread_mutex_lock(&((t_arg *)args)->talking_stick);//
-	// dprintf(2, "PHILO CURRENT IS %d\n", index);//
+	// dprintf(2, "tid %ld\n", (long)pthread_self());//
 	// pthread_mutex_unlock(&((t_arg *)args)->talking_stick);//
 	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
 	while (check_alive(args, philos, index) == TRUE)

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:48:47 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 19:33:52 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/30 20:24:32 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	seize_fork(t_fork *fork, t_arg *args, t_philo *philos, int i)
 {
 	pthread_mutex_lock(&fork->fork_mutex);
 	pthread_mutex_lock(&args->talking_stick);
-	printf("%ld %d has taken a fork\n", time_from_start(args), philos[i].name);
+	printf("%ld %d has taken a fork %d\n", time_from_start(args), philos[i].name, fork->belong_to);
 	pthread_mutex_unlock(&args->talking_stick);
 	if (check_alive(args, philos, i) == FALSE)
 		return (FALSE);
@@ -39,7 +39,7 @@ static int	take_forks(t_arg *args, t_philo *philos, int index)
 	right_fork = &(args->forks)[philos[index].right_fork];
 	if (check_alive(args, philos, index) == FALSE)
 		return (FALSE);
-	if ((index + 1) % 2 == 0)
+	if ((index) % 2 == 0)
 	{
 		if (seize_fork(right_fork, args, philos, index) == FALSE)
 			return (FALSE);
