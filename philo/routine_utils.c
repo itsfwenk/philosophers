@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:48:47 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 19:42:40 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/31 20:43:22 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ int	eat_spaghet(t_arg *args, t_philo *philos, int index)
 	print_action(args, philos[index].name, "is eating");
 	pthread_mutex_lock(&args->armageddon_mutex);
 	pthread_mutex_lock(&philos[index].last_meal_mutex);
+	if (args->armageddon == TRUE)
+	{
+		pthread_mutex_unlock(&args->armageddon_mutex);
+		pthread_mutex_unlock(&philos[index].last_meal_mutex);
+		pthread_mutex_unlock(&left_fork->fork_mutex);
+		pthread_mutex_unlock(&right_fork->fork_mutex);
+		return (FALSE);
+	}
 	philos[index].last_meal = get_time_ms();
 	pthread_mutex_unlock(&args->armageddon_mutex);
 	pthread_mutex_unlock(&philos[index].last_meal_mutex);
