@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 19:33:54 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/31 19:57:01 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ void	get_args(int ac, char **av, t_arg *args)
 	args->start_time = get_time_ms();
 	args->forks = NULL;
 	pthread_mutex_init(&args->current_mutex, NULL);
+	pthread_mutex_init(&args->armageddon_mutex, NULL);
+	pthread_mutex_lock(&args->armageddon_mutex);
+	args->armageddon = FALSE;
+	pthread_mutex_unlock(&args->armageddon_mutex);
 	pthread_mutex_init(&args->talking_stick, NULL);
+	// pthread_mutex_init(&args->check_forks, NULL);
 }
 
 suseconds_t	get_time_ms(void)
@@ -64,4 +69,18 @@ time_t	time_from_start(t_arg *args)
 	// printf("current time %ld\n", current_time);
 	// printf("start time %ld\n", args->start_time);
 	return (current_time - args->start_time);
+}
+
+void	print_action(t_arg *args, int name, char *action)
+{
+	pthread_mutex_lock(&args->armageddon_mutex);
+	if (args->armageddon == TRUE)
+	{
+		pthread_mutex_unlock(&args->armageddon_mutex);
+		return ;
+	}
+	pthread_mutex_unlock(&args->armageddon_mutex);
+	pthread_mutex_lock(&args->talking_stick);
+	printf("%ld %d %s\n", time_from_start(args), name, action);
+	pthread_mutex_unlock(&args->talking_stick);
 }

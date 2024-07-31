@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 20:53:56 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/31 20:08:35 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_fork
 {
 	pthread_mutex_t	fork_mutex;
 	int				belong_to;
+	// int				available;
 }	t_fork;
 
 typedef struct s_philo
@@ -37,11 +38,8 @@ typedef struct s_philo
 	pthread_mutex_t	n_meal_mutex;
 	int				n_meal;
 	int				exist;
-	pthread_mutex_t	alive_mutex;
-	int				alive;
 	pthread_mutex_t	last_meal_mutex;
 	time_t			last_meal;
-	pthread_mutex_t	tid_mutex;
 	pthread_t		tid;
 }	t_philo;
 
@@ -54,7 +52,10 @@ typedef struct s_arg
 	int				min_meals;
 	pthread_mutex_t	current_mutex;
 	int				current;
+	pthread_mutex_t	armageddon_mutex;
+	int				armageddon;
 	pthread_mutex_t	talking_stick;
+	// pthread_mutex_t	check_forks;
 	time_t			start_time;
 	t_fork			*forks;
 	t_philo			*philos;
@@ -62,9 +63,11 @@ typedef struct s_arg
 
 /////////////////////// CLEAN ///////////////////////
 
-void		destroy_detach(t_arg *args);
+void		destroy_mutexes(t_arg *args, t_fork	*forks, t_philo *philos);
 
 void		until_end(t_arg *args, t_philo *philos);
+
+void		join_philo(t_arg *args, t_philo *philos);
 
 /////////////////////// MOTHER ///////////////////////
 
@@ -83,15 +86,15 @@ suseconds_t	get_time_ms(void);
 
 time_t		time_from_start(t_arg *args);
 
+void		print_action(t_arg *args, int name, char *action);
+
 /////////////////////// PHILO_UTILS2 ///////////////////////
 
 int			check_alive(t_arg *args, t_philo *philos, int name);
 
-int			count_philo(t_arg *args);
-
 int			check_meals(t_arg *args, t_philo *philos);
 
-void		join_philo(t_arg *args, t_philo *philos);
+int			optimal_frequency(t_arg *args);
 
 void	philo_id(t_arg *args); ////
 
@@ -101,7 +104,7 @@ void	show_all_philo(t_arg *args);///
 
 /////////////////////// ROUTINE_UTILS ///////////////////////
 
-void		use_brain(t_arg *args, t_philo *philos, int index);
+// void		use_brain(t_arg *args, t_philo *philos, int index);
 
 int			eat_spaghet(t_arg *args, t_philo *philos, int index);
 

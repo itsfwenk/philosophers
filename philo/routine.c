@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 20:46:55 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/31 20:08:12 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,20 @@ void	do_something(int waiting_time)
 	starting_time = get_time_ms();
 	while ((get_time_ms() - starting_time) < (waiting_time))
 	{
-		usleep(400);
+		usleep(10);
 	}
+}
+
+static int	check_armageddon(t_arg *args)
+{
+	pthread_mutex_lock(&args->armageddon_mutex);
+	if (((t_arg *)args)->armageddon == TRUE)
+	{
+		pthread_mutex_unlock(&args->armageddon_mutex);
+		return (TRUE);
+	}
+	pthread_mutex_unlock(&args->armageddon_mutex);
+	return (FALSE);
 }
 
 void	*philo_routine(void *args)
@@ -34,12 +46,16 @@ void	*philo_routine(void *args)
 	// dprintf(2, "tid %ld\n", (long)pthread_self());//
 	// pthread_mutex_unlock(&((t_arg *)args)->talking_stick);//
 	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
-	while (check_alive(args, philos, index) == TRUE)
+	while (TRUE)
 	{
-		use_brain(((t_arg *)args), philos, index);
-		if (eat_spaghet(((t_arg *)args), philos, index) == FALSE)
+		print_action(args, philos[index].name, "is thinking");
+		if (check_armageddon(args) == TRUE)
 			break ;
-		if (take_nap(((t_arg *)args), philos, index) == FALSE)
+		eat_spaghet(((t_arg *)args), philos, index);
+		if (check_armageddon(args) == TRUE)
+			break ;
+		take_nap(((t_arg *)args), philos, index);
+		if (check_armageddon(args) == TRUE)
 			break ;
 	}
 	return (NULL);

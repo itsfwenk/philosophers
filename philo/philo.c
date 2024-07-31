@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 21:51:34 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/31 17:31:39 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static void	init_forks(t_arg *args, t_fork	*forks)
 	i = 0;
 	while (i < args->n_philo)
 	{
-		forks[i].belong_to = i + 1;
 		pthread_mutex_init(&forks[i].fork_mutex, NULL);
+		forks[i].belong_to = i + 1;
+		// forks->available = TRUE;
 		i++;
 	}
 }
@@ -38,13 +39,6 @@ static void	init_philo(t_arg *args, t_philo *philos)
 	args->philos = philos;
 }
 
-void	kill_philos(t_arg *args, t_philo *philos)
-{
-	destroy_detach(args);
-	free(philos);
-	free(args->forks);
-}
-
 int	main(int ac, char **av)
 {
 	t_arg	args;
@@ -57,13 +51,16 @@ int	main(int ac, char **av)
 	if (philos == NULL)
 		exit(EXIT_FAILURE);
 	init_philo(&args, philos);
-	forks = malloc((1 + ft_atoi(av[1])) * sizeof(t_fork));
+	forks = malloc((1 + args.n_philo) * sizeof(t_fork));
 	if (forks == NULL)
 		return (free(philos), FALSE);
 	args.forks = forks;
 	init_forks(&args, forks);
 	create_philo(&args, philos);
-	// join_philo(&args, philos);
 	until_end(&args, philos);
+	join_philo(&args, philos);
+	destroy_mutexes(&args, forks, philos);
+	free(philos);
+	free(forks);
 }
 

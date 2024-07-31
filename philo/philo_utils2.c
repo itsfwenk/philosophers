@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:30:32 by fli               #+#    #+#             */
-/*   Updated: 2024/07/30 21:21:54 by fli              ###   ########.fr       */
+/*   Updated: 2024/07/31 20:17:24 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,27 @@
 
 int	check_alive(t_arg *args, t_philo *philos, int index)
 {
-	// printf("current time %ld\nlast meal %ld\n", get_time_ms(), philos[index].last_meal);
+	// printf("current time %d\nlast meal %ld\n", get_time_ms(), philos[index].last_meal);
 	// printf("since last meal %ld\n", get_time_ms() - philos[index].last_meal);
 	// printf("time to die %d\n", args->die_t);
+	// dprintf(2, "%d in check alive\n", philos[index].name);
+	pthread_mutex_lock(&args->armageddon_mutex);
+	if (args->armageddon == TRUE)
+	{
+		pthread_mutex_unlock(&args->armageddon_mutex);
+		return (FALSE);
+	}
+	pthread_mutex_unlock(&args->armageddon_mutex);
 	pthread_mutex_lock(&philos[index].last_meal_mutex);
 	if ((get_time_ms() - philos[index].last_meal) > args->die_t)
 	{
-		pthread_mutex_lock(&philos[index].alive_mutex);
-		philos[index].alive = FALSE;
-		pthread_mutex_unlock(&philos[index].alive_mutex);
-		printf("%ld %d died\n", time_from_start(args), philos[index].name);
+		print_action(args, philos[index].name, "died");
+		// dprintf(2, "current time %ld last meal time %ld die_t %d\n", (long)get_time_ms(), (long)philos[index].last_meal, args->die_t);
+		pthread_mutex_lock(&args->armageddon_mutex);
+		args->armageddon = TRUE;
+		pthread_mutex_unlock(&args->armageddon_mutex);
+		// dprintf(2, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+		// printf("%ld %d died\n", time_from_start(args), philos[index].name);
 		pthread_mutex_unlock(&philos[index].last_meal_mutex);
 		return (FALSE);
 	}
@@ -31,23 +42,24 @@ int	check_alive(t_arg *args, t_philo *philos, int index)
 	return (TRUE);
 }
 
-int	count_philo(t_arg *args)
-{
-	int	i;
+// int	count_philo(t_arg *args)
+// {
+// 	int	i;
 
-	i = 0;
-	while (args->philos[i].exist == TRUE)
-	{
-		i++;
-	}
-	return (i);
-}
+// 	i = 0;
+// 	while (args->philos[i].exist == TRUE)
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 int	check_meals(t_arg *args, t_philo *philos)
 {
 	int	i;
-	if (count_philo(args) != args->n_philo)
-		return (FALSE);
+
+	// if (count_philo(args) != args->n_philo)
+	// 	return (FALSE);
 	if (args->min_meals == -1)
 		return (FALSE);
 	i = 0;
@@ -62,24 +74,27 @@ int	check_meals(t_arg *args, t_philo *philos)
 		pthread_mutex_unlock(&philos[i].n_meal_mutex);
 		i++;
 	}
+	pthread_mutex_lock(&args->armageddon_mutex);
+	args->armageddon = TRUE;
+	pthread_mutex_unlock(&args->armageddon_mutex);
 	return (TRUE);
 }
 
-void	join_philo(t_arg *args, t_philo *philos)
+int	optimal_frequency(t_arg *args)
 {
-	int	i;
-	dprintf(2, "JOINING PHILO\n");
-	i = 0;
-	while (i < args->n_philo)
-	{
-		// pthread_mutex_lock(&philos[i].tid_mutex);
-		dprintf(2, "tid %ld\n", (long)philos[i].tid);
-		pthread_join(philos[i].tid, NULL);
-		dprintf(2, "gergregergergergergergergerggergegeg");
-		// pthread_mutex_unlock(&philos[i].tid_mutex);
-		i++;
-	}
-	dprintf(2, "ALL PHILO JOINED\n");
+	int	min_cycle_time;
+	int	max_wait_time;
+	int	check_frequency;
+	int	optimal_check_frequency;
+
+	min_cycle_time = args->eat_t + args->sleep_t;
+	max_wait_time = min_cycle_time + (args->eat_t - 1);
+	check_frequency = max_wait_time / 2;
+	if (check_frequency < args->die_t / 2)
+		optimal_check_frequency = check_frequency;
+	else
+		optimal_check_frequency = (args->die_t / 2);
+	return (optimal_check_frequency);
 }
 
 void	philo_id(t_arg *args)
