@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 20:08:35 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/01 11:48:32 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void	show_all_philo(t_arg *args);///
 /////////////////////// ROUTINE_UTILS ///////////////////////
 
 // void		use_brain(t_arg *args, t_philo *philos, int index);
+
+int			seize_fork(t_fork *fork, t_arg *args, t_philo *philos, int i);
 
 int			eat_spaghet(t_arg *args, t_philo *philos, int index);
 

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 20:08:12 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/01 11:57:53 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,32 @@ void	*philo_routine(void *args)
 	return (NULL);
 }
 
+static void	*one_philo_routine(void *args)
+{
+	int		index;
+	t_philo	*philos;
+
+	philos = ((t_arg *)args)->philos;
+	index = ((t_arg *)args)->current;
+	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
+	print_action(args, philos[index].name, "is thinking");
+	seize_fork(&((t_arg *)args)->forks[0], args, philos, index);
+	do_something(((t_arg *)args)->die_t);
+	print_action(args, philos[index].name, "died");
+	pthread_mutex_lock(&((t_arg *)args)->armageddon_mutex);
+	((t_arg *)args)->armageddon = TRUE;
+	pthread_mutex_unlock(&((t_arg *)args)->armageddon_mutex);
+	return (NULL);
+}
+
 void	start_philo(t_arg *args)
 {
 	pthread_t	*current_tid;
 
 	current_tid = &args->philos[args->current].tid;
-	pthread_create(current_tid, NULL, philo_routine, args);
+	if (args->n_philo == 1)
+		pthread_create(current_tid, NULL, one_philo_routine, args);
+	else
+		pthread_create(current_tid, NULL, philo_routine, args);
 	// printf("tid = %ld\n", current_tid);
 }

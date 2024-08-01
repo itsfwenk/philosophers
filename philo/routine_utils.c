@@ -6,13 +6,13 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:48:47 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 20:43:22 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/01 11:48:16 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	seize_fork(t_fork *fork, t_arg *args, t_philo *philos, int i)
+int	seize_fork(t_fork *fork, t_arg *args, t_philo *philos, int i)
 {
 	// dprintf(2, "%d trying to take fork belonging to %d\n", philos[i].name, fork->belong_to);
 	pthread_mutex_lock(&fork->fork_mutex);
