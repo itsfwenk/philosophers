@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/08/01 16:39:08 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 00:07:57 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ time_t	get_time_ms(void)
 
 time_t	time_from_start(t_arg *args)
 {
-	suseconds_t	current_time;
+	time_t	current_time;
 
 	current_time = get_time_ms();
 	// printf("current time %ld\n", current_time);
@@ -61,5 +61,6 @@ void	print_action(t_arg *args, int name, char *action)
 	sem_post(args->armageddon);
 	sem_wait(args->talking_stick);
 	printf("%ld %d %s\n", time_from_start(args), name, action);
+	// printf("its %d\n", name);
 	sem_post(args->talking_stick);
 }
