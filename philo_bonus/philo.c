@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/08/01 23:27:20 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:12:39 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	init_semaphores(t_arg *args)
 {
 	sem_unlink("/philo_dessert");
 	args->dessert = sem_open("/philo_dessert", O_CREAT, S_IRWXU, 200);
-	if (args->armageddon == SEM_FAILED)
+	if (args->dessert == SEM_FAILED)
 		return (FALSE);
 	sem_unlink("/philo_armageddon");
 	args->armageddon = sem_open("/philo_armageddon", O_CREAT, S_IRWXU, 1);

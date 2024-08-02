@@ -6,7 +6,7 @@
 #    By: fli <fli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 17:19:02 by fli               #+#    #+#              #
-#    Updated: 2024/08/01 23:44:46 by fli              ###   ########.fr        #
+#    Updated: 2024/08/02 17:10:34 by fli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		= cc -pthread -g3
 
 CFLAGS	= -Werror -Wextra -Wall
 
-INCLUDE	=	-I ../includes/
+INCLUDE	=	-I philo_bonus.h
 
 SRC			=	mother.c \
 				philo_utils.c \

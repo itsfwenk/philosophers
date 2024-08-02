@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 01:09:35 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:07:11 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	*one_philo_routine(t_arg *args, t_philo *philos)
 {
+	time_t	start;
 	print_action(args, philos[0].name, "is thinking");
 	sem_wait(args->forks);
 	print_action(args, philos[0].name, "has taken a fork");
-	do_something(args->die_t);
+	start = get_time_ms();
+	do_something(start, args->die_t);
 	print_action(args, philos[0].name, "died");
 	return (NULL);
 }
@@ -69,11 +71,12 @@ void	philo_routine(t_arg *args, t_philo *philos, int index)
 {
 	philos[index].last_meal = get_time_ms();
 	pthread_create(&(philos[index].tid), NULL, check_death, args);
-	// if ((index + 1) % 2 != 0)
-	// 	do_something(100);
+	pthread_detach(philos[index].tid);
 	while (TRUE)
 	{
 		print_action(args, philos[index].name, "is thinking");
+		if ((index + 1) % 2 != 0)
+			do_something(get_time_ms(), 50);
 		if (check_stop(args) == TRUE)
 			break ;
 		eat_spaghet(((t_arg *)args), philos, index);

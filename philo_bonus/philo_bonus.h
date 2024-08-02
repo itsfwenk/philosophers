@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/08/01 23:47:33 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 16:32:45 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <semaphore.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -91,7 +93,7 @@ int			optimal_frequency(t_arg *args);
 
 /////////////////////// ROUTINE_UTILS ///////////////////////
 
-void		do_something(int waiting_time);
+void		do_something(time_t start, int waiting_time);
 
 void		eat_spaghet(t_arg *args, t_philo *philos, int index);
 
