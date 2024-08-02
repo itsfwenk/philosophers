@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 17:46:25 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 18:11:26 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	main(int ac, char **av)
 	t_arg	args;
 	t_philo	philos[200];
 
+	if (check_arg(ac, av) == FALSE)
+		exit(EXIT_SUCCESS);
 	get_args(ac, av, &args);
 	init_philo(&args, philos);
 	if (create_philo(&args, philos) == FALSE)

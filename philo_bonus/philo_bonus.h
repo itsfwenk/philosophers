@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 17:47:07 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 18:10:22 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,9 @@ void		print_action(t_arg *args, int name, char *action);
 
 /////////////////////// PHILO_UTILS2 ///////////////////////
 
-int			check_alive(t_arg *args, t_philo *philos, int name);
-
-int			check_meals(t_arg *args, t_philo *philos);
-
 int			optimal_frequency(t_arg *args);
+
+int			check_arg(int ac, char **av);
 
 /////////////////////// ROUTINE_UTILS ///////////////////////
 
