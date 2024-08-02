@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:03:47 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 17:30:44 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 14:22:14 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	create_philo(t_arg *args, t_philo *philos)
 		init_philo_mutex(philos, i);
 		pthread_mutex_lock(&args->current_mutex);
 		args->current = i;
+		pthread_mutex_unlock(&args->current_mutex);
 		start_philo(args);
 		i++;
 	}

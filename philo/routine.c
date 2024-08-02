@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/08/01 11:57:53 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 14:23:19 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	*philo_routine(void *args)
 	int		index;
 	t_philo	*philos;
 
-	philos = ((t_arg *)args)->philos;
+	pthread_mutex_lock(&((t_arg *)args)->current_mutex);
 	index = ((t_arg *)args)->current;
+	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
+	philos = ((t_arg *)args)->philos;
 	// pthread_mutex_lock(&((t_arg *)args)->talking_stick);//
 	// dprintf(2, "tid %ld\n", (long)pthread_self());//
 	// pthread_mutex_unlock(&((t_arg *)args)->talking_stick);//
-	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
 	while (TRUE)
 	{
 		print_action(args, philos[index].name, "is thinking");
@@ -66,9 +67,10 @@ static void	*one_philo_routine(void *args)
 	int		index;
 	t_philo	*philos;
 
-	philos = ((t_arg *)args)->philos;
+	pthread_mutex_lock(&((t_arg *)args)->current_mutex);
 	index = ((t_arg *)args)->current;
 	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
+	philos = ((t_arg *)args)->philos;
 	print_action(args, philos[index].name, "is thinking");
 	seize_fork(&((t_arg *)args)->forks[0], args, philos, index);
 	do_something(((t_arg *)args)->die_t);
