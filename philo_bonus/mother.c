@@ -6,35 +6,11 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:03:47 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 17:16:28 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:44:37 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-void	*check_dessert(void *args)
-{
-	int		i;
-	t_arg	*arg;
-
-	arg = (t_arg *)args;
-	i = 0;
-	while (i < arg->n_philo)
-	{
-		sem_wait(arg->dessert);
-		i++;
-	}
-	kill(arg->philos[0].pid, SIGINT);
-	return (NULL);
-}
-
-void	launch_dessert(t_arg *args)
-{
-	if (args->min_meals == -1)
-		return ;
-	pthread_create(&(args->dessert_thread), NULL, check_dessert, args);
-	pthread_detach(args->dessert_thread);
-}
 
 void	destroy_sem(t_arg *args)
 {
@@ -54,7 +30,6 @@ void	wait_philos(t_arg *args)
 	pid_t	dead_child;
 
 	dead_child = waitpid(-1, NULL, 0);
-	// sem_post(args->talking_stick);
 	i = 0;
 	while (i < args->n_philo && args->n_philo != 1)
 	{
@@ -72,10 +47,21 @@ void	wait_philos(t_arg *args)
 	destroy_sem(args);
 }
 
+static void	if_fork_fail(t_arg *args, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		kill(args->philos[i].pid, SIGTERM);
+		j++;
+	}
+}
+
 int	create_philo(t_arg *args, t_philo *philos)
 {
 	int	i;
-	int	j;
 
 	args->start_time = get_time_ms();
 	i = 0;
@@ -84,12 +70,7 @@ int	create_philo(t_arg *args, t_philo *philos)
 		philos[i].pid = fork();
 		if (philos[i].pid < 0)
 		{
-			j = 0;
-			while (j < i)
-			{
-				kill(args->philos[i].pid, SIGTERM);
-				j++;
-			}
+			if_fork_fail(args, i);
 			return (FALSE);
 		}
 		if (philos[i].pid == 0)

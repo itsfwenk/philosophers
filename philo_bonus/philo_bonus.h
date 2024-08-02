@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 16:32:45 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:47:07 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,19 @@ typedef struct s_arg
 	sem_t		*forks;
 }	t_arg;
 
-/////////////////////// MOTHER ///////////////////////
+/////////////////////// DESSERT///////////////////////
 
 void		*check_dessert(void *args);
 
 void		launch_dessert(t_arg *args);
+
+/////////////////////// MOTHER ///////////////////////
 
 void		destroy_sem(t_arg *args);
 
 void		wait_philos(t_arg *args);
 
 int			create_philo(t_arg *args, t_philo *philos);
-
-/////////////////////// PHILO ///////////////////////
-
 
 /////////////////////// PHILO_UTILS ///////////////////////
 

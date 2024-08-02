@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 17:07:11 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:48:06 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	*one_philo_routine(t_arg *args, t_philo *philos)
 {
 	time_t	start;
+
 	print_action(args, philos[0].name, "is thinking");
 	sem_wait(args->forks);
 	print_action(args, philos[0].name, "has taken a fork");
@@ -59,7 +60,6 @@ void	*check_death(void *args)
 			sem_wait(arg->talking_stick);
 			printf("%ld %d died\n", time_from_start(arg), philos[i].name);
 			sem_post(((t_arg *)args)->armageddon);
-			// sem_post(arg->talking_stick);
 			exit(EXIT_SUCCESS);
 		}
 		sem_post(((t_arg *)args)->armageddon);

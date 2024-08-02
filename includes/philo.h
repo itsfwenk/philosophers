@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 15:50:08 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:41:18 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_fork
 {
 	pthread_mutex_t	fork_mutex;
 	int				belong_to;
-	// int				available;
 }	t_fork;
 
 typedef struct s_philo
@@ -55,7 +54,6 @@ typedef struct s_arg
 	pthread_mutex_t	armageddon_mutex;
 	int				armageddon;
 	pthread_mutex_t	talking_stick;
-	// pthread_mutex_t	launch_philo;
 	time_t			start_time;
 	t_fork			*forks;
 	t_philo			*philos;
@@ -72,9 +70,6 @@ void		join_philo(t_arg *args, t_philo *philos);
 /////////////////////// MOTHER ///////////////////////
 
 void		create_philo(t_arg *args, t_philo *philos);
-
-/////////////////////// PHILO ///////////////////////
-
 
 /////////////////////// PHILO_UTILS ///////////////////////
 
@@ -96,21 +91,13 @@ int			check_meals(t_arg *args, t_philo *philos);
 
 int			optimal_frequency(t_arg *args);
 
-void	philo_id(t_arg *args); ////
-
-void	print_args(t_arg *args);/////
-
-void	show_all_philo(t_arg *args);///
+int			take_nap(t_arg *args, t_philo *philos, int index);
 
 /////////////////////// ROUTINE_UTILS ///////////////////////
-
-// void		use_brain(t_arg *args, t_philo *philos, int index);
 
 int			seize_fork(t_fork *fork, t_arg *args, t_philo *philos, int i);
 
 int			eat_spaghet(t_arg *args, t_philo *philos, int index);
-
-int			take_nap(t_arg *args, t_philo *philos, int index);
 
 /////////////////////// ROUTINE ///////////////////////
 

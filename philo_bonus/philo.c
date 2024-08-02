@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 17:12:39 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:46:25 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	init_semaphores(t_arg *args)
 void	get_args(int ac, char **av, t_arg *args)
 {
 	int	i;
-
 
 	args->n_philo = ft_atoi(av[1]);
 	args->die_t = ft_atoi(av[2]);

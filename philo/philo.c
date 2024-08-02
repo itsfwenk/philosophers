@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:50 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 17:31:39 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:32:12 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	init_forks(t_arg *args, t_fork	*forks)
 	{
 		pthread_mutex_init(&forks[i].fork_mutex, NULL);
 		forks[i].belong_to = i + 1;
-		// forks->available = TRUE;
 		i++;
 	}
 }
@@ -46,7 +45,6 @@ int	main(int ac, char **av)
 	t_fork	*forks;
 
 	get_args(ac, av, &args);
-	// print_args(&args);
 	philos = malloc((1 + args.n_philo) * sizeof(t_philo));
 	if (philos == NULL)
 		exit(EXIT_FAILURE);
@@ -63,4 +61,3 @@ int	main(int ac, char **av)
 	free(philos);
 	free(forks);
 }
-

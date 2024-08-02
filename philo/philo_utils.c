@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 15:36:02 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:37:35 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	get_args(int ac, char **av, t_arg *args)
 	args->armageddon = FALSE;
 	pthread_mutex_unlock(&args->armageddon_mutex);
 	pthread_mutex_init(&args->talking_stick, NULL);
-	// pthread_mutex_init(&args->launch_philo, NULL);
-	// pthread_mutex_init(&args->check_forks, NULL);
 }
 
 suseconds_t	get_time_ms(void)
@@ -56,8 +54,6 @@ suseconds_t	get_time_ms(void)
 	suseconds_t		current_time;
 
 	gettimeofday(&tp, NULL);
-	// printf("sec time %ld\n", tp.tv_sec);
-	// printf("usec time %ld\n", tp.tv_usec);
 	current_time = ((tp.tv_sec * 1000000) + tp.tv_usec) / 1000;
 	return (current_time);
 }
@@ -67,8 +63,6 @@ time_t	time_from_start(t_arg *args)
 	suseconds_t	current_time;
 
 	current_time = get_time_ms();
-	// printf("current time %ld\n", current_time);
-	// printf("start time %ld\n", args->start_time);
 	return (current_time - args->start_time);
 }
 

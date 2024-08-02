@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:12:51 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 15:36:20 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:31:30 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	destroy_mutexes(t_arg *args, t_fork	*forks, t_philo *philos)
 	pthread_mutex_destroy(&args->current_mutex);
 	pthread_mutex_destroy(&args->armageddon_mutex);
 	pthread_mutex_destroy(&args->talking_stick);
-	// pthread_mutex_destroy(&args->launch_philo);
 }
 
 void	until_end(t_arg *args, t_philo *philos)
@@ -66,8 +65,6 @@ void	until_end(t_arg *args, t_philo *philos)
 		}
 	}
 }
-
-
 				// int j = 0;
 				// while (j < args->n_philo)
 				// {
@@ -78,21 +75,11 @@ void	until_end(t_arg *args, t_philo *philos)
 void	join_philo(t_arg *args, t_philo *philos)
 {
 	int	i;
-	// dprintf(2, "JOINING PHILO\n");
+
 	i = 0;
 	while (i < args->n_philo)
 	{
-		// pthread_mutex_lock(&philos[i].tid_mutex);
 		pthread_join(philos[i].tid, NULL);
-		// dprintf(2, "gergregergergergergergergerggergegeg");
-		// pthread_mutex_unlock(&philos[i].tid_mutex);
 		i++;
 	}
-	// dprintf(2, "ALL PHILO JOINED\n");
-		int j = 0;
-		while (j < args->n_philo)
-		{
-			dprintf(2, "meals eaten : %d\n", philos[j].n_meal);
-			j++;
-		}
 }

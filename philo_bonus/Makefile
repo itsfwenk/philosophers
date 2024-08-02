@@ -6,7 +6,7 @@
 #    By: fli <fli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/20 17:19:02 by fli               #+#    #+#              #
-#    Updated: 2024/08/02 17:10:34 by fli              ###   ########.fr        #
+#    Updated: 2024/08/02 17:50:18 by fli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS	= -Werror -Wextra -Wall
 
 INCLUDE	=	-I philo_bonus.h
 
-SRC			=	mother.c \
+SRC			=	dessert.c \
+				mother.c \
 				philo_utils.c \
 				philo_utils2.c \
 				philo.c \
