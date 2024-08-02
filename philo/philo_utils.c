@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:47:21 by fli               #+#    #+#             */
-/*   Updated: 2024/07/31 19:57:01 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 15:36:02 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	get_args(int ac, char **av, t_arg *args)
 	args->armageddon = FALSE;
 	pthread_mutex_unlock(&args->armageddon_mutex);
 	pthread_mutex_init(&args->talking_stick, NULL);
+	// pthread_mutex_init(&args->launch_philo, NULL);
 	// pthread_mutex_init(&args->check_forks, NULL);
 }
 

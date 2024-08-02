@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:17:52 by fli               #+#    #+#             */
-/*   Updated: 2024/08/01 11:48:32 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 15:50:08 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_arg
 	pthread_mutex_t	armageddon_mutex;
 	int				armageddon;
 	pthread_mutex_t	talking_stick;
-	// pthread_mutex_t	check_forks;
+	// pthread_mutex_t	launch_philo;
 	time_t			start_time;
 	t_fork			*forks;
 	t_philo			*philos;
@@ -114,7 +114,7 @@ int			take_nap(t_arg *args, t_philo *philos, int index);
 
 /////////////////////// ROUTINE ///////////////////////
 
-void		do_something(int waiting_time);
+void		do_something(suseconds_t start, int waiting_time);
 
 void		*philo_routine(void *args);
 

@@ -6,18 +6,18 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 14:23:19 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/02 16:04:13 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	do_something(int waiting_time)
+void	do_something(suseconds_t start, int waiting_time)
 {
-	suseconds_t		starting_time;
+	// suseconds_t		starting_time;
 
-	starting_time = get_time_ms();
-	while ((get_time_ms() - starting_time) < (waiting_time))
+	// starting_time = get_time_ms();
+	while ((get_time_ms() - start) < (suseconds_t)(waiting_time))
 	{
 		usleep(10);
 	}
@@ -41,7 +41,9 @@ void	*philo_routine(void *args)
 	t_philo	*philos;
 
 	pthread_mutex_lock(&((t_arg *)args)->current_mutex);
+	// dprintf(2, "in %d thread\n", ((t_arg *)args)->current);
 	index = ((t_arg *)args)->current;
+	// dprintf(2, "index %d\n", index);
 	pthread_mutex_unlock(&((t_arg *)args)->current_mutex);
 	philos = ((t_arg *)args)->philos;
 	// pthread_mutex_lock(&((t_arg *)args)->talking_stick);//
@@ -66,6 +68,7 @@ static void	*one_philo_routine(void *args)
 {
 	int		index;
 	t_philo	*philos;
+	suseconds_t	start;
 
 	pthread_mutex_lock(&((t_arg *)args)->current_mutex);
 	index = ((t_arg *)args)->current;
@@ -73,7 +76,8 @@ static void	*one_philo_routine(void *args)
 	philos = ((t_arg *)args)->philos;
 	print_action(args, philos[index].name, "is thinking");
 	seize_fork(&((t_arg *)args)->forks[0], args, philos, index);
-	do_something(((t_arg *)args)->die_t);
+	start = get_time_ms();
+	do_something(start, ((t_arg *)args)->die_t);
 	print_action(args, philos[index].name, "died");
 	pthread_mutex_lock(&((t_arg *)args)->armageddon_mutex);
 	((t_arg *)args)->armageddon = TRUE;
