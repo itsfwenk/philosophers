@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:48:47 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 16:49:55 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/03 11:36:22 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	eat_spaghet(t_arg *args, t_philo *philos, int index)
 	sem_post(args->armageddon);
 	print_action(args, philos[index].name, "is eating");
 	do_something(start, args->eat_t);
-	sem_wait(args->armageddon);
-	philos[index].last_meal = get_time_ms();
-	sem_post(args->armageddon);
+	// sem_wait(args->armageddon);
+	// philos[index].last_meal = get_time_ms();
+	// sem_post(args->armageddon);
 	sem_post(args->forks);
 	sem_post(args->forks);
 	(philos[index].n_meal)++;

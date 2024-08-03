@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:48:43 by fli               #+#    #+#             */
-/*   Updated: 2024/08/02 17:48:06 by fli              ###   ########.fr       */
+/*   Updated: 2024/08/03 11:48:50 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ void	philo_routine(t_arg *args, t_philo *philos, int index)
 	philos[index].last_meal = get_time_ms();
 	pthread_create(&(philos[index].tid), NULL, check_death, args);
 	pthread_detach(philos[index].tid);
+	if ((index + 1) % 2 != 0)
+		usleep(15000);
 	while (TRUE)
 	{
 		print_action(args, philos[index].name, "is thinking");
-		if ((index + 1) % 2 != 0)
-			do_something(get_time_ms(), 50);
+		// if ((index + 1) % 2 != 0)
+		// 	do_something(get_time_ms(), 50);
 		if (check_stop(args) == TRUE)
 			break ;
 		eat_spaghet(((t_arg *)args), philos, index);
